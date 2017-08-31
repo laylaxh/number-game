@@ -28,6 +28,9 @@ class Game extends React.Component {
   componentDidMount() {
     this.intervalId = setInterval(() => {
       this.props.decrementTime();
+      if(this.props.remainingSeconds === 0){
+        clearInterval(this.intervalId);  // completely remove the timer
+      }
     }, 1000);
   }
 
@@ -47,6 +50,7 @@ class Game extends React.Component {
     if (sumSelected < this.target) {
       return 'playing';
     }
+    clearInterval(this.intervalId);
     if (sumSelected === this.target) {
       return 'won';
     }
