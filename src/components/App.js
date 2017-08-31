@@ -10,7 +10,6 @@ class App extends React.Component {
     return (
       <div>
         <Game numberCount={5} />
-        <Game numberCount={7} />
       </div>
     );
   }

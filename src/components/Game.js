@@ -29,7 +29,6 @@ class Game extends React.Component {
     return (
       <div>
         <div id="target">{this.target}</div>
-        <div id="random-numbers">{this.randomNumbers}</div>
         <RandomNumbersPanel randomNumbers={this.randomNumbers}/>
       </div>
     );
