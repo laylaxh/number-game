@@ -4,9 +4,9 @@ import ReactDOM from 'react-dom';
 import './store';
 import './styles/index.scss';
 
-import Game from './components/Game';
+import App from './components/App';
 
 ReactDOM.render(
-  <Game />,
+  <App />,
   document.getElementById('root'),
 );
