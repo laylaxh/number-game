@@ -7,14 +7,21 @@ State:
 import * as Redux from 'redux';
 
 const initialState = {
-  selectedNumbers: []
+  selectedNumbers: [],
+  remainingSeconds: 10,
 };
 
 const actionFunctions = {
-  'SELECT_NUMBER': (state, payload) => {
+  SELECT_NUMBER: (state, payload) => {
     return {
       ...state,
       selectedNumbers: [...state.selectedNumbers, payload.index],
+    };
+  },
+  DECREMENT_TIME: (state) => {
+    return {
+      ...state,
+      remainingSeconds: state.remainingSeconds - 1,
     };
   },
 };

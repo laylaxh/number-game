@@ -15,6 +15,7 @@ const RandomNumbersPanel = (props) => {
           selected={isNumberTileSelected(index)}
           onClick={props.selectNumber}
           number={number}
+          canBeClicked={props.canPlay}
           id={index}
           key={index}
         />
@@ -27,6 +28,7 @@ RandomNumbersPanel.propTypes = {
   randomNumbers: PropTypes.arrayOf(PropTypes.number).isRequired,
   selectNumber: PropTypes.func.isRequired,
   selectedNumbers: PropTypes.arrayOf(PropTypes.number).isRequired,
+  canPlay: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => {
