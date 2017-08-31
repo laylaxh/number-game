@@ -3,6 +3,7 @@ import Game from './Game';
 import store from '../store';
 import PropTypes from 'prop-types';
 
+
 class App extends React.Component {
   constructor(){
     super();
@@ -10,7 +11,7 @@ class App extends React.Component {
 
   // Return values of our context
   getChildContext(){
-    return { store: storeConfig() }; // same as { store: store};
+    return { store }; // same as { store: store};
   }
 
   // Design our context - just like prop types but for contexts
