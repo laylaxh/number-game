@@ -1,20 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import NumberTile from './NumberTile';
-import store from '../store';
 
 const RandomNumbersPanel = (props) => {
   const isNumberTileSelected = (numberIndex) => {
-    return store.getState().selectedNumbers.indexOf(numberIndex) >= 0;
+    return props.selectedNumbers.indexOf(numberIndex) >= 0;
   };
-
   return (
-    <div id= "random-numbers">
+    <div id="random-numbers">
       {props.randomNumbers.map((number, index) => (
-        <NumberTile 
+        <NumberTile
           selected={isNumberTileSelected(index)}
-          number={number} 
-          key={index} 
+          onClick={props.selectNumber}
+          number={number}
+          id={index}
+          key={index}
         />
       ))}
     </div>
@@ -23,7 +25,20 @@ const RandomNumbersPanel = (props) => {
 
 RandomNumbersPanel.propTypes = {
   randomNumbers: PropTypes.arrayOf(PropTypes.number).isRequired,
+  selectNumber: PropTypes.func.isRequired,
+  selectedNumbers: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
+const mapStateToProps = (state) => {
+  return state;
+};
 
-export default RandomNumbersPanel;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    selectNumber: (numberIndex) => {
+      dispatch({ type: 'SELECT_NUMBER', payload: { index: numberIndex } });
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RandomNumbersPanel);

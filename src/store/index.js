@@ -1,51 +1,41 @@
 /*
 State:
-  // Sum of numbers you selected
+  // Sum of numbers you Selected
   // Win/Lose
 */
 
-/* First in terminal: npm i redux react-redux
-  When we use Redux, anything that goes to a state has to go to the redux store which means 
-  the state is not connected to React anymore. Redux and React are now 2 separate memory 
-  spaces so we have to tie them together. react-redux makes connecting easier.
-*/
 import * as Redux from 'redux';
 
 const initialState = {
-  // This is how we were faking it by selecting the indexes clicked by user:
-  // selectedNumbers: [0, 2] 
-  selectedNumbers: []  // No need to fake anymore
+  selectedNumbers: []
 };
 
-// Whatever you return from this reducer will be the new state 
-const reducer = (state, action) => {         
-  // console.log('calling reducer', action);
-  // if(action.type === 'TEST') {
-  //   // Instead of `state.counter = 1;`, return a new object, copy original state, and do modification
-  //   // Immutable way to manage a state
-  //   return {
-  //     ...state, 
-  //     counter: 1,
-  //   }; 
-  // }
-  // if(action.type === 'TEST2') {    
-  //   return {
-  //     ...state, 
-  //     counter: state.counter + 1;,
-  //   }; 
-  // }
-  return state;      
+const actionFunctions = {
+  'SELECT_NUMBER': (state, payload) => {
+    return {
+      ...state,
+      selectedNumbers: [...state.selectedNumbers, payload.index],
+    };
+  },
 };
 
-const store = Redux.createStore(reducer, initialState); 
+const reducer = (state, action) => {
+  const actionFunction = actionFunctions[action.type];
+  if (!actionFunction) {
+    return state;
+  }
+  return actionFunction(state, action.payload);
+};
 
-// store.dispatch({type: 'TEST'}); // Everytime I dispatch, the reducer is called with my action
-// console.log('getState', store.getState()); // Gives getState > {selectedNumbers: Array(2), counter:1}
-
-// store.dispatch({type: 'TEST2'}); // Everytime I dispatch, the reducer is called with my action
-// console.log('getState', store.getState()); // Gives getState > {selectedNumbers: Array(2), counter:2}
-
-// store.dispatch({type: 'TEST2'}); // Everytime I dispatch, the reducer is called with my action
-// console.log('getState', store.getState()); // Gives getState > {selectedNumbers: Array(2), counter:3}
+const store = Redux.createStore(reducer, initialState);
+// // console.log(store);
+// console.log('getState', store.getState());
+// //
+// store.dispatch({ type: 'SELECT_NUMBER', payload: { index: 3 } });
+// console.log('getState', store.getState());
+// store.dispatch({ type: 'SELECT_NUMBER', payload: { index: 0 } });
+// console.log('getState', store.getState());
+// store.dispatch({ type: 'SELECT_NUMBER', payload: { index: 6 } });
+// console.log('getState', store.getState());
 
 export default store;
