@@ -1,28 +1,37 @@
 import React from 'react';
 import Game from './Game';
-import store from '../store';
+import storeConfig from '../store';
 import PropTypes from 'prop-types';
+import { Provider } from 'react-redux';
 
 
 class App extends React.Component {
-  constructor(){
-    super();
-  }
-
-  // Return values of our context
-  getChildContext(){
-    return { store }; // same as { store: store};
-  }
-
-  // Design our context - just like prop types but for contexts
-  static childContextTypes = {
-    store: PropTypes.object.isRequired,
-  };
+  store = storeConfig();
+   state = {
+     score: 0,
+     gameId: Date.now(),
+   };
+   resetGame = () => {
+     this.store = storeConfig();
+     this.setState({ gameId: Date.now() });
+   };
+   updateScore = (remainingSeconds) => {
+     this.setState((prevState) => {
+       return { score: prevState.score + 100 * remainingSeconds };
+     });
+   };
 
   render() {
     return (
       <div>
-        <Game numberCount={5} />
+       {this.state.score}
+          <Provider key={this.state.gameId} store={this.store}>
+            <Game
+              updateScore={this.updateScore}
+              resetGame={this.resetGame}
+              numberCount={5}
+            />
+          </Provider>
       </div>
     );
   }

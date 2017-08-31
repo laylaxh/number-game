@@ -12,6 +12,8 @@ class Game extends React.Component {
     selectedNumbers: PropTypes.arrayOf(PropTypes.number).isRequired,
     decrementTime: PropTypes.func.isRequired,
     remainingSeconds: PropTypes.number.isRequired,
+    resetGame: PropTypes.func.isRequired,
+    updateScore: PropTypes.func.isRequired,
   };
   constructor(props) {
     super();
@@ -32,6 +34,13 @@ class Game extends React.Component {
         clearInterval(this.intervalId);  // completely remove the timer
       }
     }, 1000);
+  }
+
+  // Done updating, if game status is 1, update the score
+  componentDidUpdate() {
+    if (this.gameStatus() === 'won') {
+      this.props.updateScore(this.props.remainingSeconds);
+    }
   }
 
   // Before React removes from DOM
@@ -70,9 +79,7 @@ class Game extends React.Component {
     const gameStatus = this.gameStatus();
     return (
       <div id="game">
-        <div>
-          {this.props.remainingSeconds}
-        </div>
+        <div id="time">{this.props.remainingSeconds}</div>
         <div
           id="target"
           style={{
@@ -85,6 +92,10 @@ class Game extends React.Component {
           canPlay={gameStatus === 'playing'}
           randomNumbers={this.randomNumbers}
         />
+
+        {gameStatus !== 'playing' && (
+          <button onClick={this.props.resetGame}>Play Again</button>
+        )}
       </div>
     );
   }

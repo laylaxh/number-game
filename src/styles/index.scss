@@ -28,3 +28,14 @@ div#target {
   border-radius: 1em;
   background-color: #cecccc;
 }
+
+div#time {
+  width: 50%;
+  display: inline-block;
+}
+
+div#score {
+  width: 50%;
+  display: inline-block;
+  text-align: right;
+}
