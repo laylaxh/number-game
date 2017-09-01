@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import { randomNumberGenerator } from '../store/util';
 import RandomNumbersPanel from './RandomNumbersPanel';
 import { decrementTime } from '../store/actions';
+import shuffle from 'lodash.shuffle'; // npm i lodash.shuffle first
 
 class Game extends React.Component {
   static propTypes = {
@@ -23,6 +23,7 @@ class Game extends React.Component {
     this.target = this.randomNumbers
       .slice(0, props.numberCount - 2)
       .reduce((acc, curr) => acc + curr);
+    this.randomNumbers = shuffle(this.randomNumbers);
   }
 
   // Lifecycle methods, there are 7 - steps like constructor runs first, renders, mounts, componentDidMount, etc. 
@@ -72,8 +73,12 @@ class Game extends React.Component {
     if(gameStatus === 'playing'){
       return;
     }
-    return gameStatus === 'won'? 'green' : 'red';
+    return gameStatus === 'won'? 'lightgreen' : 'indianred';
   }
+
+  canPlay = () => {
+    return this.gameStatus() === 'playing';
+  };
 
  render() {
     const gameStatus = this.gameStatus();
@@ -89,7 +94,7 @@ class Game extends React.Component {
           {this.target}
         </div>
         <RandomNumbersPanel
-          canPlay={gameStatus === 'playing'}
+          canPlay={this.canPlay}
           randomNumbers={this.randomNumbers}
         />
 

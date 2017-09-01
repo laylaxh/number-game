@@ -1,9 +1,3 @@
-/*
-State:
-  // Sum of numbers you Selected
-  // Win/Lose
-*/
-
 import * as Redux from 'redux';
 
 const initialState = {
@@ -35,9 +29,8 @@ const reducer = (state, action) => {
 };
 
 // const store = Redux.createStore(reducer, initialState);
-// // console.log(store);
+// console.log(store);
 // console.log('getState', store.getState());
-// //
 // store.dispatch({ type: 'SELECT_NUMBER', payload: { index: 3 } });
 // console.log('getState', store.getState());
 // store.dispatch({ type: 'SELECT_NUMBER', payload: { index: 0 } });

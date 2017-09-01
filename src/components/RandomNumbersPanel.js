@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import NumberTile from './NumberTile';
 
 const RandomNumbersPanel = (props) => {
@@ -28,11 +27,13 @@ RandomNumbersPanel.propTypes = {
   randomNumbers: PropTypes.arrayOf(PropTypes.number).isRequired,
   selectNumber: PropTypes.func.isRequired,
   selectedNumbers: PropTypes.arrayOf(PropTypes.number).isRequired,
-  canPlay: PropTypes.bool.isRequired,
+  canPlay: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
-  return state;
+  return {
+    selectedNumbers: state.selectedNumbers,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

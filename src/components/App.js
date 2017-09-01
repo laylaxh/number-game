@@ -4,7 +4,6 @@ import storeConfig from '../store';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 
-
 class App extends React.Component {
   store = storeConfig();
    state = {

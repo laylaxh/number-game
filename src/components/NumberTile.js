@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class NumberTile extends React.Component {
+class NumberTile extends React.PureComponent {
   static propTypes = {
     id: PropTypes.number.isRequired,
     number: PropTypes.number.isRequired,
     selected: PropTypes.bool, // for isNumberTileSelected
     onClick: PropTypes.func.isRequired,
-    canBeClicked: PropTypes.bool.isRequired,
+    canBeClicked: PropTypes.func.isRequired,
   };
 
   // Will default propTypes w/o isRequired specified as isRequired
@@ -17,10 +17,15 @@ class NumberTile extends React.Component {
 
   handleClick = () => {
     // if you select it you can't select it again
-    if(!this.props.selected && this.props.canBeClicked){
+    if(!this.props.selected && this.props.canBeClicked()){
       this.props.onClick(this.props.id);
     }
   };
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log(this.props, nextProps);
+    console.log(this.state, nextState);
+  }
 
   render() {
     return (
